@@ -1,0 +1,16 @@
+{% extends "admin_base.html" %}
+
+{% block subtitle %} - Settings{% endblock subtitle %}
+
+{% block main %}
+<form action="." method="post">
+	<div>Accept email from: <input type="text" name="accept_email_from" size="50" maxlength="500" value="{{ accept_email_from|escape }}"></div>
+	<div>Accept email with: <input type="text" name="accept_email_with" size="50" maxlength="500" value="{{ accept_email_with|escape }}"></div>
+	<div>Remote publish protocol: <input type="text" name="remote_publish_protocol" size="50" maxlength="500" value="{{ remote_publish_protocol|escape }}"></div>
+	<div>Remote publish URL: <input type="text" name="remote_publish_url" size="50" maxlength="500" value="{{ remote_publish_url|escape }}"></div>
+	<div>Time offset: <input type="text" name="time_offset" size="5" maxlength="5" value="{{ time_offset|escape }}"></div>
+	<div>
+		<input type="submit" name="save_settings" value="Save Settings">
+	</div>
+</form>
+{% endblock main %}

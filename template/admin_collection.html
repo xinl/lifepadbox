@@ -1,0 +1,49 @@
+{% extends "admin_base.html" %}
+
+{% block subtitle %} - Edit Entries{% endblock subtitle %}
+
+{% block main %}
+
+<form action="." method="post">
+	<table class="collectionlist">
+		<tr>
+			<td colspan="4">Select: <a href="#">All</a>, <a href="#">None</a></td>
+		</tr>
+		{% if collections %}
+		{% for collection in collections %}
+		<tr>
+			<td><input id="key_name" type="checkbox" name="key_name" value="{{ collection.key.name|escape }}" onclick="updateDeleteButtonAndCheckbox();"/></td>
+			<td>
+				{{ collection.key.name|escape }}<input type="hidden" name="name" value="{{ collection.key.name|escape }}">
+			</td>
+			<td>
+				<input id="slug" type="text" name="slug" size="20" maxlength="500" value="{{ collection.slug|escape }}">
+			</td>
+			<td>
+				<input type="text" name="items" size="50" maxlength="500" value="{{ collection.items|join:" " }}"></div>
+			</td>
+		</tr>
+        {% endfor %}
+        <tr>
+			<td colspan="4">
+				<div>
+					<input id="delete_button" type="submit" value="Delete" name="delete" onclick="return confirm('Are you sure you wish to delete the selected collections?')">
+					<input id="update_button" type="submit" value="Update" name="update">
+				</div>
+			</td>
+		</tr>
+        {% else %}
+        <tr>
+        	<td colspan="4">No collection found.</td>
+        </tr>
+        {% endif %}
+	</table>
+    </form><br>
+<form action="." method="post">
+	<div>Create new collection:</div>
+	<div><label for="new_name">Name:</label> <input id="new_name" type="text" name="new_name" size="30" maxlength="500" value=""></div>
+	<div><label for="new_slug">Slug:</label> <input id="new_slug" type="text" name="new_slug" size="30" maxlength="500" value=""></div>
+	<div><label for="new_items">Entry ID List:</label> <input id="new_items" type="text" name="new_items" size="50" maxlength="500" value=""></div>
+	<div><input id="create_button" type="submit" value="Create New Collection" name="create"></div>
+</form>
+{% endblock main %}

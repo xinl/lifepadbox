@@ -1,0 +1,27 @@
+{% extends "admin_base.html" %}
+
+{% block subtitle %} - {% if entry.id %}{{ entry.title|escape }}{% else %}New Entry{% endif %}{% endblock subtitle %}
+
+{% block main %}
+<form action="." method="post">
+	<div><label for="title">Title:</label> <input id="title" type="text" name="title" size="30" maxlength="500" value="{{ entry.title|escape }}"></div>
+	<div><textarea id="content" name="content" rows="10" cols="30">{{ entry.content|escape }}</textarea></div>
+	<div>Tags: <input id="tags" type="text" name="tags" size="30" maxlength="500" value="{{ entry.tags|join:" "|escape }}"></div>
+	{% if not is_draft %}
+	<div>Publish Time: <input id="published" type="text" name="published" size="20" maxlength="200" value="{{ entry.published|date:"Y-m-d H:i:s" }}"></div>
+	<div>Publicity:
+		<input id="public" type="radio" name="public" value="True" {% if entry.public %}checked{% endif %}> <label for="public">Public</label>
+		<input id="private" type="radio" name="public" value="False" {% if not entry.public %}checked{% endif %}> <label for="private">Private</label>
+	</div>
+	{% endif %}
+	<div>
+		{% if is_draft %}
+		<input id="publish" type="submit" name="publish" value="Publish">
+		<input id="saveasdraft" type="submit" name="saveasdraft" value="Save as Draft">
+		{% else %}
+		<input id="update" type="submit" name="update" value="Update">
+		{% endif %}
+	</div>
+	<input id="id" type="hidden" name="id" value="{{ entry.id }}">
+</form>
+{% endblock main %}

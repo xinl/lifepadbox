@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Strict//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Lifepad Admin{% block subtitle %}{% endblock subtitle %}</title>
+<style type="text/css" media="screen, projection">
+body {
+	font-family: "Hiragino Sans GB", "STHeiti", "WenQuanYi Micro Hei", "微软雅黑",  "Helvetica Neue", "Arial", "DejaVu Sans", sans-serif;
+	font-size: 1em;
+	margin:0;
+}
+a {
+	text-decoration: none;
+}
+#header {
+	width: 100%;	
+	background: #666;
+}
+#sitetitle {
+	padding: 0.25em 1em;
+}
+#sitetitle a {
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #FFF;
+}
+#nav {
+	width:100%;
+	background: #999;
+	overflow: hidden;
+}
+#nav ul {
+	padding: 0;
+	margin: 0 1em;
+}
+#nav li {
+	display:block;
+	float: left;
+	margin-right: 1.5em;
+}
+#nav a {
+	color: #FFF;
+}
+#nav a:hover, #nav a.active {
+	color: #333;
+}
+#main {
+	clear: both;
+	margin: 1em;
+}
+#main a {
+	color:#58a;
+}
+#main a:hover {
+	color:#c60;
+}
+.e-tags {
+	color: #999;
+	font-size: 0.75em;
+}
+.draft-tag, .private-tag {
+	font-size: 0.75em;
+	text-transform: uppercase;
+	color: #c60;
+}
+td {
+	vertical-align:top;
+}
+#footer {
+	color: #CCC;
+	padding: 0 1em;
+}
+</style>
+
+</head>
+<body>
+
+<div id="header">
+	<div id="sitetitle"><a href="/admin/">Lifepad Admin</a></div>
+</div>
+
+<div id="nav">
+	<ul>
+		<li><a href="/admin/entry/">New Entry</a></li>
+		<li><a href="/admin/entries/">Edit Entries</a></li>
+		<li><a href="/admin/collection/">Manage Collections</a></li>
+		<li><a href="/admin/settings/">Settings</a></li>
+	</ul>
+</div>
+
+<div id="main">
+	{% block main %}{% endblock main %}
+</div>
+
+<div id="footer">Powered by LifepadBox.</div>
+
+</body>
+</html>

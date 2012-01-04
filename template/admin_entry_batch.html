@@ -1,0 +1,76 @@
+{% extends "admin_base.html" %}
+
+{% block subtitle %} - Edit Entries{% endblock subtitle %}
+
+{% block main %}
+
+<form action="." method="post">
+	<table class="entrylist">
+		<tr>
+			<td colspan="3">Select: <a href="#">All</a>, <a href="#">None</a> View: <a href="/admin/entries/draft/">Drafts</a>, <a href="/admin/entries/private/">Private Entries</a></td>
+		</tr>
+		{% if is_archive %}
+		<tr>
+			<td colspan="3">Entries published in {{ query.start_time|date:"F Y" }}:</td>
+		</tr>
+		{% endif %}
+		{% if is_tag %}
+		<tr>
+			<td colspan="3">Entries filed under {{ query.tags|join:" "|escape }}:</td>
+		</tr>
+		{% endif %}
+		{% if is_draft %}
+		<tr>
+			<td colspan="3">Unpublished drafts:</td>
+		</tr>
+		{% endif %}
+		{% if is_private %}
+		<tr>
+			<td colspan="3">Private entries:</td>
+		</tr>
+		{% endif %}
+		{% if entries %}
+		{% for entry in entries %}
+		<tr>
+			<td><input id="id" type="checkbox" name="id" value="{{ entry.id }}" onclick="updateDeleteButtonAndCheckbox();"></td>
+			<td>
+				<a href="/admin/entry/{{ entry.id }}" title="Edit this entry">{{ entry.title|escape }}</a> {% ifequal entry.public None %}<span class="draft-tag">Draft</span>{% else %}{% if not entry.public %}<span class="private-tag">Private</span>{% endif %}{% endifequal %}
+				<span class="e-tags">{{ entry.tags|join:" "|escape }}</span>
+			</td>
+			<td>
+			{% if entry.published %}
+				{{ entry.published|date:"Y/m/d" }}
+			{% endif %}
+			</td>
+		</tr>
+        {% endfor %}
+        <tr>
+			<td colspan="3">
+				<div>
+					<input id="delete_button" type="submit" value="Delete" name="delete" onclick="return confirm('Are you sure you wish to delete the selected entries?')">
+				</div>
+				<div>Page: 
+					{% for p in page_list %}
+						{% ifequal p 0 %}
+							 ... 
+						{% else %}
+							{% ifequal p query.page %}
+								<a>{{ p }}</a>
+							{% else %}
+								<a href="{{ base_url }}/page/{{ p }}">{{ p }}</a>
+							{% endifequal %}
+						{% endifequal %}
+					{% endfor %}
+				</div>
+			</td>
+		</tr>
+        {% else %}
+        <tr>
+        	<td colspan="3">No entry found.</td>
+        </tr>
+        {% endif %}
+		
+	</table>
+    </form>
+
+{% endblock main %}
